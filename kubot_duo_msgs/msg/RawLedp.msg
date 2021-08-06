@@ -1,5 +1,5 @@
 Header header
-uint8 led_num
+uint8 ledNum
 uint8 led_brightness
 uint8 led_speed
 uint8 led_color_r

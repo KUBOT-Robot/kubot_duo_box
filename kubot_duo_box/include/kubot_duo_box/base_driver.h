@@ -67,7 +67,7 @@ private:
 
 // 更新LED狀態
 private:
-	void callback_led_status(const kubot_duo_msgs::RawLeds& led_cmd);
+	void callback_led_status(const kubot_duo_msgs::RawLeds& led_control_msgs);
 	void update_led_status();
 	kubot_duo_msgs::RawLeds led_control_msgs;
 	ros::Subscriber led_control_sub;
@@ -81,7 +81,7 @@ private:
 
 // 更新舵機狀態
 private:
-	void callback_servo_status(const kubot_duo_msgs::RawServos& servo_cmd);
+	void callback_servo_status(const kubot_duo_msgs::RawServos& servo_control_msgs);
 	void update_servo_status();
 	kubot_duo_msgs::RawServos servo_control_msgs;
 	ros::Subscriber servo_control_sub;

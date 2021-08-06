@@ -16,7 +16,7 @@ Simple_dataframe::~Simple_dataframe()
 
 bool Simple_dataframe::init()
 {
-	trans->set_timeout(500);
+	trans->set_timeout(2000);
 	return true;
 }
 
@@ -168,7 +168,7 @@ bool Simple_dataframe::interact(const MESSAGE_ID id)
 bool Simple_dataframe::recv_proc()
 {
 	int i = 0;
-	trans->set_timeout(250);
+	trans->set_timeout(2000);
 
 	bool got = false;
 	while (true)
