@@ -11,7 +11,6 @@ BaseDriver* BaseDriver::instance = NULL;
 
 BaseDriver::BaseDriver() : pn("~"), bdg(pn)
 {
-	//init config
 	bdg.init();
 
 	trans = boost::make_shared<Serial_transport2>(bdg.port, bdg.baudrate);
@@ -65,7 +64,7 @@ void BaseDriver::init_duo_box()
 void BaseDriver::init_led_control()
 {
 	ROS_INFO_STREAM("[KUBOT]advertise led topic on [" << bdg.led_status_topic << "]");
-	led_status_pub = nh.advertise<kubot_duo_msgs::RawLedP>(bdg.led_status_topic, 50);
+	led_status_pub = nh.advertise<kubot_duo_msgs::RawLedP>("led_status", 50);
 	led_status_msgs.header.frame_id = "led_status";
 
 	ROS_INFO_STREAM("[KUBOT]subscribe led topic on [" << bdg.led_control_topic << "]");
@@ -77,7 +76,7 @@ void BaseDriver::init_led_control()
 void BaseDriver::init_servo_control()
 {
 	ROS_INFO_STREAM("[KUBOT]advertise servo topic on [" << bdg.servo_status_topic << "]");
-	servo_status_pub = nh.advertise<kubot_duo_msgs::RawServoP>(bdg.servo_status_topic, 50);
+	servo_status_pub = nh.advertise<kubot_duo_msgs::RawServoP>("servo_status", 50);
 	servo_status_msgs.header.frame_id = "servo_status";
 
 	ROS_INFO_STREAM("[KUBOT]subscribe servo topic on [" << bdg.servo_control_topic << "]");
@@ -129,12 +128,14 @@ void BaseDriver::work_loop()
 	}
 }
 
-int UPDATE_LED_STATUS_INTERVAL = 1;
+int UPDATE_LED_STATUS_INTERVAL = 2;
 void BaseDriver::get_led_status()
 {
 	static int last_millis = 0;
 	if (ros::Time::now().toSec() - last_millis > UPDATE_LED_STATUS_INTERVAL) {
+
 		frame->interact(ID_GET_LED_STATUS);
+
 		led_status_msgs.header.stamp = ros::Time::now();
 
 		led_status_msgs.ledNum = Data_holder::get()->led_status.ledNum;
@@ -151,12 +152,14 @@ void BaseDriver::get_led_status()
 	}
 }
 
-int UPDATE_SERVO_STATUS_INTERVAL = 1;
+int UPDATE_SERVO_STATUS_INTERVAL = 2;
 void BaseDriver::get_servo_status()
 {
 	static int last_millis = 0;
 	if (ros::Time::now().toSec() - last_millis > UPDATE_SERVO_STATUS_INTERVAL) {
+
 		frame->interact(ID_GET_SERVO_STATUS);
+
 		servo_status_msgs.header.stamp = ros::Time::now();
 
 		servo_status_msgs.servoNum = Data_holder::get()->servo_status.servoNum;
@@ -169,15 +172,19 @@ void BaseDriver::get_servo_status()
 }
 
 void BaseDriver::update_led_status(){
+/*
     if (need_update_led) {
         ROS_INFO_STREAM("update led");
         need_update_led = !(frame->interact(ID_SET_LED_STATUS));
     }
+*/
 }
 
 void BaseDriver::update_servo_status(){
+/*
     if (need_update_servo) {
         ROS_INFO_STREAM("update servo");
         need_update_servo = !(frame->interact(ID_SET_SERVO_STATUS));
     }
+*/
 }

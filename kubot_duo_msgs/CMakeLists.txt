@@ -1,14 +1,21 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(kubot_duo_msgs)
 
-find_package(catkin REQUIRED COMPONENTS message_generation std_msgs geometry_msgs)
+find_package(catkin REQUIRED COMPONENTS
+   roscpp
+   rospy
+   std_msgs
+   message_generation
+   geometry_msgs
+)
 
-add_message_files(FILES
-		RawLedP.msg
-      RawLedS.msg
-      RawServoP.msg
-      RawServoS.msg
-               )
+add_message_files(
+   FILES
+	RawLedP.msg
+   RawLedS.msg
+   RawServoP.msg
+   RawServoS.msg
+)
 
 generate_messages(DEPENDENCIES std_msgs geometry_msgs)
 

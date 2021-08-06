@@ -2,10 +2,8 @@
 #define KUBOT_BASE_DRIVER_H_
 
 #include <ros/ros.h>
-
 #include <boost/shared_ptr.hpp>
 #include "base_driver_config.h"
-
 #include "transport.h"
 #include "dataframe.h"
 
@@ -24,6 +22,8 @@ private:
 	ros::NodeHandle pn;
 	DueBoxDriverConfig bdg;
 	static BaseDriver* instance;
+	boost::shared_ptr<Transport> trans;
+	boost::shared_ptr<Dataframe> frame;
 
 public:
 	static BaseDriver* Instance()
@@ -35,9 +35,6 @@ public:
 	}
 	~BaseDriver();
 
-	void work_loop();
-
-public:
 	DueBoxDriverConfig& getDueBoxDriverConfig()
 	{
 		return bdg;
@@ -53,13 +50,14 @@ public:
 		return &pn;
 	}
 
-// 初始化
+public:
+	void work_loop();
+
+// 初始化 duo box
 private:
 	void init_duo_box();
 	void init_led_control();
 	void init_servo_control();
-	boost::shared_ptr<Transport> trans;
-	boost::shared_ptr<Dataframe> frame;
 
 // 獲取LED狀態
 private:
