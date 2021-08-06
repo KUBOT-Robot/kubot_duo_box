@@ -4,7 +4,7 @@
 
 int main(int argc, char* argv[])
 {
-	ros::init(argc, argv, "kubot_due_box");
+	ros::init(argc, argv, "kubot_duo_box");
 
 	BaseDriver::Instance()->work_loop();
 

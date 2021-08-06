@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-	<name>kubot_bringup</name>
+	<name>kubot_duo_box</name>
 	<version>1.0.1</version>
 	<description>
   	The KUBOT Duo Box Board bringup package.

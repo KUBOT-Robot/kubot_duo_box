@@ -6,8 +6,8 @@
 #include <boost/shared_ptr.hpp>
 #include "base_driver_config.h"
 
-#include "kubot_due_bringup/transport.h"
-#include "kubot_due_bringup/dataframe.h"
+#include "transport.h"
+#include "dataframe.h"
 
 #include <std_msgs/Int16.h>
 #include <std_msgs/Int32.h>
@@ -58,31 +58,36 @@ private:
 	void init_duo_box();
 	void init_led_control();
 	void init_servo_control();
+	boost::shared_ptr<Transport> trans;
+	boost::shared_ptr<Dataframe> frame;
 
 // 獲取LED狀態
 private:
 	void get_led_status();
-	kubog_due_msgs::RawLedP led_status_msgs;
+	kubot_duo_msgs::RawLedP led_status_msgs;
 	ros::Publisher led_status_pub;
 
 // 更新LED狀態
 private:
+	void led_status_callback(const kubot_duo_msgs::RawLedS& led_cmd);
 	void update_led_status();
-	kubot_due_msgs::RawLedS led_control_msgs;
+	kubot_duo_msgs::RawLedS led_control_msgs;
 	ros::Subscriber led_control_sub;
+	bool need_update_led;
 
 // 獲取舵機狀態
 private:
 	void get_servo_status();
-	kubot_due_msgs::RawServoP servo_status_msgs;
+	kubot_duo_msgs::RawServoP servo_status_msgs;
 	ros::Publisher servo_status_pub;
 
 // 更新舵機狀態
 private:
-	void update_led_status();
-	kubot_due_msgs::RawServoS servo_control_msgs;
+	void servo_status_callback(const kubot_duo_msgs::RawServoS& servo_cmd);
+	void update_servo_status();
+	kubot_duo_msgs::RawServoS servo_control_msgs;
 	ros::Subscriber servo_control_sub;
-
+	bool need_update_servo;
 };
 
 #endif /* KUBOT_BASE_DRIVER_H_ */

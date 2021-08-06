@@ -43,7 +43,7 @@ public:
 private:
    Data_holder()
    {
-      memset(&firmware_info, 0, sizeof(struct Robot_firmware));
+      memset(&firmware_info, 0, sizeof(struct Controller_firmware));
       memset(&led_status, 0, sizeof(struct Controller_led_status));
       memset(&servo_status, 0, sizeof(struct Controller_servo_status));
    }

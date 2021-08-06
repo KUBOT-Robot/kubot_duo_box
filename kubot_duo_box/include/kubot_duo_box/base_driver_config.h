@@ -8,6 +8,7 @@ class DueBoxDriverConfig
 public:
 	DueBoxDriverConfig(ros::NodeHandle& p);
 	~DueBoxDriverConfig();
+	void init();
 
 public:
 // 定義通訊串口

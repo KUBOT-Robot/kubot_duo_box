@@ -14,8 +14,6 @@ DueBoxDriverConfig::~DueBoxDriverConfig()
 
 void DueBoxDriverConfig::init()
 {
-	rp = r;
-
 	// Comm param
 	pn.param<std::string>("port", port, "/dev/ttyACM0");
 	pn.param<int32_t>("baudrate", baudrate, 115200);

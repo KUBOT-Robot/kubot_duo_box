@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(kubot_duo_bringup)
+project(kubot_duo_box)
 
 find_package(catkin REQUIRED)
 
