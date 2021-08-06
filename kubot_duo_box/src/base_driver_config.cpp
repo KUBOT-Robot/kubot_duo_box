@@ -29,7 +29,7 @@ void DueBoxDriverConfig::init()
 	pn.param<std::string>("led_status_topic", led_status_topic, "led_status");
 	pn.param<std::string>("led_control_topic", led_control_topic, "led_control");
 	pn.param<std::string>("servo_status_topic", servo_status_topic, "servo_status");
-	pn.param<std::string>("servo_control_topic", servo_control_topic, "servo_status");
+	pn.param<std::string>("servo_control_topic", servo_control_topic, "servo_control");
 
 	pn.param<int32_t>("freq", freq, 1000);
 }

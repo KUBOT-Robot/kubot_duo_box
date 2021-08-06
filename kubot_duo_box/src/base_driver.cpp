@@ -58,36 +58,36 @@ BaseDriver::~BaseDriver()
 
 void BaseDriver::init_duo_box()
 {
+	ROS_INFO_STREAM("[KUBOT]advertise led topic on [" << bdg.led_status_topic << "]");
+	led_status_pub = nh.advertise<kubot_duo_msgs::RawLedp>("led_status", 50);
+	led_status_msgs.header.frame_id = "led_status";
 
+	ROS_INFO_STREAM("[KUBOT]advertise servo topic on [" << bdg.servo_status_topic << "]");
+	servo_status_pub = nh.advertise<kubot_duo_msgs::RawServop>("servo_status", 50);
+	servo_status_msgs.header.frame_id = "servo_status";
 }
 
 void BaseDriver::init_led_control()
 {
-	ROS_INFO_STREAM("[KUBOT]advertise led topic on [" << bdg.led_status_topic << "]");
-	led_status_pub = nh.advertise<kubot_duo_msgs::RawLedP>("led_status", 50);
-	led_status_msgs.header.frame_id = "led_status";
 
 	ROS_INFO_STREAM("[KUBOT]subscribe led topic on [" << bdg.led_control_topic << "]");
-	led_control_sub = nh.subscribe(bdg.led_control_topic, 50, &BaseDriver::led_status_callback, this);
+	led_control_sub = nh.subscribe(bdg.led_control_topic, 50, &BaseDriver::callback_led_status, this);
 	led_control_msgs.header.frame_id = "led_control";
 
+	need_update_led = false;
 }
 
 void BaseDriver::init_servo_control()
 {
-	ROS_INFO_STREAM("[KUBOT]advertise servo topic on [" << bdg.servo_status_topic << "]");
-	servo_status_pub = nh.advertise<kubot_duo_msgs::RawServoP>("servo_status", 50);
-	servo_status_msgs.header.frame_id = "servo_status";
 
 	ROS_INFO_STREAM("[KUBOT]subscribe servo topic on [" << bdg.servo_control_topic << "]");
-	servo_control_sub = nh.subscribe(bdg.servo_control_topic, 50, &BaseDriver::servo_status_callback, this);
+	servo_control_sub = nh.subscribe(bdg.servo_control_topic, 50, &BaseDriver::callback_servo_status, this);
 	servo_control_msgs.header.frame_id = "servo_control";
 
-	need_update_led = false;
 	need_update_servo = false;
 }
 
-void BaseDriver::led_status_callback(const kubot_duo_msgs::RawLedS& led_cmd){
+void BaseDriver::callback_led_status(const kubot_duo_msgs::RawLeds& led_cmd) {
 
 	Data_holder::get()->led_status.ledNum = led_control_msgs.ledNum;
 	Data_holder::get()->led_status.led_brightness = led_control_msgs.led_brightness;
@@ -100,7 +100,7 @@ void BaseDriver::led_status_callback(const kubot_duo_msgs::RawLedS& led_cmd){
 	need_update_led = true;
 }
 
-void BaseDriver::servo_status_callback(const kubot_duo_msgs::RawServoS& servo_cmd){
+void BaseDriver::callback_servo_status(const kubot_duo_msgs::RawServos& servo_cmd) {
 
 	Data_holder::get()->servo_status.servoNum = servo_control_msgs.servoNum;
 	Data_holder::get()->servo_status.servo_angle = servo_control_msgs.servo_angle;
@@ -128,13 +128,13 @@ void BaseDriver::work_loop()
 	}
 }
 
-int UPDATE_LED_STATUS_INTERVAL = 2;
+int UPDATE_LED_STATUS_INTERVAL = 1;
 void BaseDriver::get_led_status()
 {
 	static int last_millis = 0;
 	if (ros::Time::now().toSec() - last_millis > UPDATE_LED_STATUS_INTERVAL) {
 
-		frame->interact(ID_GET_LED_STATUS);
+		frame->interact(ID_GET_SERVO_STATUS);
 
 		led_status_msgs.header.stamp = ros::Time::now();
 
@@ -152,7 +152,7 @@ void BaseDriver::get_led_status()
 	}
 }
 
-int UPDATE_SERVO_STATUS_INTERVAL = 2;
+int UPDATE_SERVO_STATUS_INTERVAL = 1;
 void BaseDriver::get_servo_status()
 {
 	static int last_millis = 0;
@@ -171,20 +171,20 @@ void BaseDriver::get_servo_status()
 	}
 }
 
-void BaseDriver::update_led_status(){
-/*
-    if (need_update_led) {
-        ROS_INFO_STREAM("update led");
-        need_update_led = !(frame->interact(ID_SET_LED_STATUS));
-    }
-*/
+void BaseDriver::update_led_status() {
+	/*
+		 if (need_update_led) {
+			  ROS_INFO_STREAM("update led");
+			  need_update_led = !(frame->interact(ID_SET_LED_STATUS));
+		 }
+	*/
 }
 
-void BaseDriver::update_servo_status(){
-/*
-    if (need_update_servo) {
-        ROS_INFO_STREAM("update servo");
-        need_update_servo = !(frame->interact(ID_SET_SERVO_STATUS));
-    }
-*/
+void BaseDriver::update_servo_status() {
+	/*
+		 if (need_update_servo) {
+			  ROS_INFO_STREAM("update servo");
+			  need_update_servo = !(frame->interact(ID_SET_SERVO_STATUS));
+		 }
+	*/
 }

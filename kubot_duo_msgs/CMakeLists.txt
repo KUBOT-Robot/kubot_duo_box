@@ -11,12 +11,12 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
    FILES
-	RawLedP.msg
-   RawLedS.msg
-   RawServoP.msg
-   RawServoS.msg
+	RawLedp.msg
+   RawLeds.msg
+   RawServop.msg
+   RawServos.msg
 )
 
-generate_messages(DEPENDENCIES std_msgs geometry_msgs)
+## generate_messages(DEPENDENCIES std_msgs geometry_msgs)
 
 catkin_package(CATKIN_DEPENDS message_runtime std_msgs geometry_msgs)

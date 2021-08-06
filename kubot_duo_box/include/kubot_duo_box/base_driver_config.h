@@ -19,7 +19,7 @@ public:
 	bool led_control_enable;
 	bool servo_control_enable;
 
-// 定義topic name
+// 定義topic
 	std::string led_status_topic;
 	std::string led_control_topic;
 	std::string servo_status_topic;

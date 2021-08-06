@@ -5,7 +5,7 @@
         <param name="led_status_topic" value="led_status" />
         <param name="led_control_topic" value="led_control" />
         <param name="servo_status_topic" value="servo_status" />
-        <param name="servo_control_topic" value="servo_status" />
+        <param name="servo_control_topic" value="servo_control" />
         <param name="led_control_enable" value="true" />
         <param name="servo_control_enable" value="true"/>
     </node>
