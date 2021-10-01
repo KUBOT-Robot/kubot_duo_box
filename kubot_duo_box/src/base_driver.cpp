@@ -134,7 +134,7 @@ void BaseDriver::get_led_status()
 	static int last_millis = 0;
 	if (ros::Time::now().toSec() - last_millis > UPDATE_LED_STATUS_INTERVAL) {
 
-		frame->interact(ID_GET_SERVO_STATUS);
+		frame->interact(ID_GET_LED_STATUS);
 
 		led_status_msgs.header.stamp = ros::Time::now();
 

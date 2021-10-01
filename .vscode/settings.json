@@ -1,8 +1,0 @@
-{
-   "files.associations": {
-      "*.rsdf": "xml",
-      "*.sdf": "xml",
-      "*.ipp": "cpp",
-      "*.tcc": "cpp"
-   }
-}
