@@ -56,7 +56,9 @@ public:
 // 初始化 duo box
 private:
 	void init_duo_box();
+	void init_led_status();
 	void init_led_control();
+	void init_servo_status();
 	void init_servo_control();
 
 // 獲取LED狀態
