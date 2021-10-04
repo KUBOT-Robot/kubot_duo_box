@@ -65,6 +65,10 @@ void BaseDriver::init_duo_box()
 	ROS_INFO_STREAM("[KUBOT]advertise servo topic on [" << bdg.servo_status_topic << "]");
 	servo_status_pub = nh.advertise<kubot_duo_msgs::RawServop>("servo_status", 50);
 	servo_status_msgs.header.frame_id = "servo_status";
+
+	ROS_INFO("[KUBOT]wait for device...");
+	ros::Duration(30).sleep(); //wait for device
+	ROS_INFO("[KUBOT]Let's Start !");
 }
 
 void BaseDriver::init_led_control()
