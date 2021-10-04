@@ -23,6 +23,7 @@
    ```sh
    # cd YOUR ROS1 workspace
    catkin_make
+   # and source YOUR ROS1 workspace
    ```
 
 3. 啟動第二下位機
