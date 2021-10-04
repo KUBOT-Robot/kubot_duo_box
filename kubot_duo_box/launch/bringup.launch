@@ -1,12 +1,12 @@
 <launch>
     <node name="kubot_duo_box" pkg="kubot_duo_box" type="kubot_duo_box" output="screen">
-        <param name="port" value="/dev/ttyUSB0" />
+        <param name="port" value="/dev/kubot_duo_box" />
         <param name="baudrate" value="115200" />
         <param name="led_status_topic" value="led_status" />
         <param name="led_control_topic" value="led_control" />
         <param name="servo_status_topic" value="servo_status" />
         <param name="servo_control_topic" value="servo_control" />
         <param name="led_control_enable" value="true" />
-        <param name="servo_control_enable" value="true"/>
+        <param name="servo_control_enable" value="false"/>
     </node>
 </launch>

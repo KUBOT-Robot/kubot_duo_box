@@ -114,9 +114,9 @@ void BaseDriver::work_loop()
 
 	while (ros::ok()) {
 
-//		get_led_status();
+		get_led_status();
 
-//		get_servo_status();
+		get_servo_status();
 
 		update_led_status();
 
