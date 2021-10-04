@@ -30,11 +30,6 @@
    roslaunch kubot_duo_box bringup.launch
    ```
 
-4. rosotpic： 
-   ```sh
-   rostopic pub /led_control 
-   ```
-
 # LED Topic
 
 ROS Pub `/led_control` 用於控制下位機燈條狀態, 目前版本4條同步.
