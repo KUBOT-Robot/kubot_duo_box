@@ -13,7 +13,7 @@
 
 # Install
 
-1. 進行控制板初始化, 將設定裝置rules. 
+1. 進行控制板環境設置, 將設定裝置rules. 
    ```sh
    # cd This package.
    sudo ./kubot_duo_box_init_env.sh
