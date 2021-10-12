@@ -6,6 +6,7 @@ echo "Build controller udev rulse..."
 tput sgr0
 
 echo 'KERNEL=="ttyUSB*", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", MODE:="0777", SYMLINK+="kubot_duo_box"' >/etc/udev/rules.d/kubot_duo_box.rules
+echo 'KERNEL=="ttyUSB*", ATTRS{devpath}=="2.2.2", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="0483", MODE:="0777", SYMLINK+="kubot_duo_box"'  >/etc/udev/rules.d/kubot_duo_box.rules
 status=$?
 if [ $status -eq 0 ]; then
    tput setaf 2

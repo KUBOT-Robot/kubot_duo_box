@@ -1,11 +1,16 @@
 #include "base_driver.h"
 #include "data_holder.h"
 #include "simple_dataframe_master.h"
-#include "serial_transport2.h"
 
 #include <std_msgs/Float32MultiArray.h>
 #include <boost/assign/list_of.hpp>
 #include <string.h> 
+
+#ifdef USE_BOOST_SERIAL_TRANSPORT
+#include "serial_transport.h"
+#else
+#include "serial_transport2.h"
+#endif
 
 BaseDriver* BaseDriver::instance = NULL;
 
@@ -13,7 +18,11 @@ BaseDriver::BaseDriver() : pn("~"), bdg(pn)
 {
 	bdg.init();
 
+#ifdef USE_BOOST_SERIAL_TRANSPORT
+	trans = boost::make_shared<Serial_transport>(bdg.port, bdg.baudrate);
+#else
 	trans = boost::make_shared<Serial_transport2>(bdg.port, bdg.baudrate);
+#endif
 
 	frame = boost::make_shared<Simple_dataframe>(trans.get());
 
