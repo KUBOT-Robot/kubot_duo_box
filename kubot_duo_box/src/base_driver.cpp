@@ -16,7 +16,8 @@ BaseDriver* BaseDriver::instance = NULL;
 
 BaseDriver::BaseDriver() : pn("~"), bdg(pn)
 {
-	bdg.init();
+	//init config
+	bdg.init(&Data_holder::get()->parameter);
 
 #ifdef USE_BOOST_SERIAL_TRANSPORT
 	trans = boost::make_shared<Serial_transport>(bdg.port, bdg.baudrate);
@@ -57,6 +58,9 @@ BaseDriver::BaseDriver() : pn("~"), bdg(pn)
 	init_led_control();
 
 	init_servo_control();
+
+	init_param();
+
 }
 
 BaseDriver::~BaseDriver()
@@ -100,6 +104,20 @@ void BaseDriver::init_servo_control()
 	need_update_servo = false;
 }
 
+void BaseDriver::init_param()
+{
+	Controller_robot_parameter* param = &Data_holder::get()->parameter;
+	memset(param, 0, sizeof(Controller_robot_parameter));
+
+	Data_holder::dump_params(param);
+
+	Data_holder::get()->parameter.led_pixel = 10;
+	Data_holder::get()->parameter.servo_max = 179;
+	Data_holder::get()->parameter.servo_min = 5;
+
+	bdg.SetRobotParameters();
+}
+
 void BaseDriver::callback_led_status(const kubot_duo_msgs::RawLeds& led_control_msgs) {
 
 	Data_holder::get()->led_status.ledNum = led_control_msgs.ledNum;
@@ -134,6 +152,8 @@ void BaseDriver::work_loop()
 		update_led_status();
 
 		update_servo_status();
+
+		update_param();
 
 		loop.sleep();
 
@@ -198,4 +218,14 @@ void BaseDriver::update_servo_status() {
 		ROS_INFO_STREAM("update servo");
 		need_update_servo = !(frame->interact(ID_SET_SERVO_STATUS));
 	}
+}
+
+void BaseDriver::update_param() {
+#ifdef USE_DYNAMIC_RECONFIG
+	if (bdg.get_param_update_flag())
+	{
+		ros::Rate loop(5);
+		loop.sleep();
+	}
+#endif
 }

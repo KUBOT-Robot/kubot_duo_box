@@ -145,13 +145,13 @@ bool Simple_dataframe::interact(const MESSAGE_ID id)
 		break;
 	case ID_GET_LED_STATUS:
 		send_message(id);
-		break;		
+		break;
 	case ID_SET_LED_STATUS:
 		send_message(id, (unsigned char*)&dh->led_status, sizeof(dh->led_status));
 		break;
 	case ID_GET_SERVO_STATUS:
 		send_message(id);
-		break;		
+		break;
 	case ID_SET_SERVO_STATUS:
 		send_message(id, (unsigned char*)&dh->servo_status, sizeof(dh->servo_status));
 		break;

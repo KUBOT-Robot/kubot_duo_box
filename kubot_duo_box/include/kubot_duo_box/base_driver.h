@@ -60,7 +60,8 @@ private:
 	void init_led_control();
 	void init_servo_status();
 	void init_servo_control();
-
+	void init_param();
+	
 // 獲取LED狀態
 private:
 	void get_led_status();
@@ -88,6 +89,10 @@ private:
 	kubot_duo_msgs::RawServos servo_control_msgs;
 	ros::Subscriber servo_control_sub;
 	bool need_update_servo;
+
+// 更新動態參數
+private:
+	void update_param();
 };
 
 #endif /* KUBOT_BASE_DRIVER_H_ */

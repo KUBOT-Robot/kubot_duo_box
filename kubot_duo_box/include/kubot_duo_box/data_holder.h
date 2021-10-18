@@ -31,6 +31,18 @@ struct Controller_servo_status {
    short servo_angle;    // 伺服舵機旋轉角度
 };
 
+struct Controller_robot_parameter {
+   union
+   {
+      char buff[64];
+      struct {
+         unsigned short led_pixel;
+         unsigned short servo_max;
+         unsigned short servo_min;
+      };
+   };
+};
+
 #pragma pack(0)
 
 class Data_holder {
@@ -40,18 +52,25 @@ public:
       return &dh;
    }
 
+   void load_parameter();
+   void save_parameter();
+
+   static void dump_params(struct Controller_robot_parameter* params);
+
 private:
    Data_holder()
    {
       memset(&firmware_info, 0, sizeof(struct Controller_firmware));
       memset(&led_status, 0, sizeof(struct Controller_led_status));
       memset(&servo_status, 0, sizeof(struct Controller_servo_status));
+      memset(&parameter, 0, sizeof(struct Controller_robot_parameter));
    }
 
 public:
    struct Controller_firmware       firmware_info;
    struct Controller_led_status     led_status;
    struct Controller_servo_status   servo_status;
+   struct Controller_robot_parameter parameter;
 };
 
 #endif /* KUBOT_DATA_HOLDER_H_ */
